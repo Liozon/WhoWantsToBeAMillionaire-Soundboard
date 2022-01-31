@@ -8,6 +8,7 @@ function playSound(e) {
 
     if (currentPlayer && currentPlayer != thissound) {
         currentPlayer.pause();
+        currentPlayer.currentTime = 0;
     }
 
     if (thissound.paused) {
