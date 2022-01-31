@@ -10,6 +10,7 @@
 <body>
 	<!-- kbd is keyboard input -->
 	<!-- keycodes: https://css-tricks.com/snippets/javascript/javascript-keycodes/ -->
+	<!-- Audio from: https://www.youtube.com/watch?v=xmGSf15WWVg&list=PLSiop7V1KXM563qQ4eDVSnK0CF5exn--w&index=1 -->
 
 	<header>
 		<h1>
@@ -22,25 +23,45 @@
 		<div class="row">
 			<h2>General music</h2>
 			<div class="keys">
+				<button data-key="49" class="key">
+					<kbd data-key="49">1</kbd>
+					<span data-key="49" class="sound">Main Theme</span>
+				</button>
+				<button data-key="50" class="key">
+					<kbd data-key="50">2</kbd>
+					<span data-key="50" class="sound">Let's play !</span>
+				</button>
+				<button data-key="51" class="key">
+					<kbd data-key="51">3</kbd>
+					<span data-key="51" class="sound">Candidate's coming</span>
+				</button>
+				<button data-key="52" class="key">
+					<kbd data-key="52">4</kbd>
+					<span data-key="52" class="sound">Fastest finger</span>
+				</button>
+				<button data-key="53" class="key">
+					<kbd data-key="53">5</kbd>
+					<span data-key="53" class="sound">Commercial break</span>
+				</button>
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="row">
+			<h2>Jokers music</h2>
+			<div class="keys">
 				<button data-key="81" class="key">
 					<kbd data-key="81">Q</kbd>
-					<span data-key="81" class="sound">Main Theme</span>
+					<span data-key="81" class="sound">50 / 50</span>
 				</button>
 				<button data-key="87" class="key">
 					<kbd data-key="87">W</kbd>
-					<span data-key="87" class="sound">Let's play !</span>
+					<span data-key="87" class="sound">Call a friend</span>
 				</button>
 				<button data-key="69" class="key">
 					<kbd data-key="69">E</kbd>
-					<span data-key="69" class="sound">Call a friend</span>
-				</button>
-				<button data-key="82" class="key">
-					<kbd data-key="82">R</kbd>
-					<span data-key="82" class="sound">Fastest finger</span>
-				</button>
-				<button data-key="84" class="key">
-					<kbd data-key="84">T</kbd>
-					<span data-key="84" class="sound">Commercial break</span>
+					<span data-key="69" class="sound">Ask the audience</span>
 				</button>
 			</div>
 		</div>
@@ -74,6 +95,10 @@
 					<kbd data-key="72">H</kbd>
 					<span data-key="72" class="sound">1'000'000$ question</span>
 				</button>
+				<button data-key="81" class="key">
+					<kbd data-key="81">J</kbd>
+					<span data-key="81" class="sound">Question selection</span>
+				</button>
 			</div>
 		</div>
 
@@ -99,11 +124,15 @@
 
 	</div>
 
-	<audio data-key="81" src="sounds/main theme.mp3"></audio>
-	<audio data-key="87" src="sounds/lets play.mp3"></audio>
-	<audio data-key="69" src="sounds/phone a friend.mp3"></audio>
-	<audio data-key="82" src="sounds/fastest finger.mp3"></audio>
-	<audio data-key="84" src="sounds/commerical break.mp3"></audio>
+	<audio data-key="49" src="sounds/main theme.mp3"></audio>
+	<audio data-key="50" src="sounds/lets play.mp3"></audio>
+	<audio data-key="51" src="sounds/candidate's arriving.mp3"></audio>
+	<audio data-key="52" src="sounds/fastest finger.mp3"></audio>
+	<audio data-key="53" src="sounds/commerical break.mp3"></audio>
+
+	<audio data-key="81" src="sounds/50-50.mp3"></audio>
+	<audio data-key="87" src="sounds/phone a friend.mp3"></audio>
+	<audio data-key="69" src="sounds/ask the audience.mp3"></audio>
 
 	<audio data-key="89" src="sounds/final answer.mp3"></audio>
 	<audio data-key="88" src="sounds/correct answer.mp3"></audio>
@@ -115,6 +144,7 @@
 	<audio data-key="70" src="sounds/125000-250000 music.mp3"></audio>
 	<audio data-key="71" src="sounds/500000 music.mp3"></audio>
 	<audio data-key="72" src="sounds/1000000 music.mp3"></audio>
+	<audio data-key="81" src="sounds/question selection.mp3"></audio>
 
 	<script type="text/javascript" src="js/script.js"></script>
 
