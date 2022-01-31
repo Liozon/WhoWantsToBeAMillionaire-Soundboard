@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Who wants to be a millionaire ?</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="icon" href="https://muggli.one/favicon/apple-icon-180x180.png">
+</head>
+
+<body>
+	<!-- kbd is keyboard input -->
+	<!-- keycodes: https://css-tricks.com/snippets/javascript/javascript-keycodes/ -->
+
+	<header>
+		<h1>
+			Who wants to be a millionaire ?
+		</h1>
+	</header>
+
+	<div class="container">
+
+		<div class="row">
+			<h2>General music</h2>
+			<div class="keys">
+				<button data-key="81" class="key">
+					<kbd data-key="81">Q</kbd>
+					<span data-key="81" class="sound">Main Theme</span>
+				</button>
+				<button data-key="87" class="key">
+					<kbd data-key="87">W</kbd>
+					<span data-key="87" class="sound">Let's play !</span>
+				</button>
+				<button data-key="69" class="key">
+					<kbd data-key="69">E</kbd>
+					<span data-key="69" class="sound">Call a friend</span>
+				</button>
+				<button data-key="82" class="key">
+					<kbd data-key="82">R</kbd>
+					<span data-key="82" class="sound">Fastest finger</span>
+				</button>
+				<button data-key="84" class="key">
+					<kbd data-key="84">T</kbd>
+					<span data-key="84" class="sound">Commercial break</span>
+				</button>
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="row">
+			<h2>Question sounds</h2>
+			<div class="keys">
+				<button data-key="65" class="key">
+					<kbd data-key="65">A</kbd>
+					<span data-key="65" class="sound">100$ - 1'000$ question</span>
+				</button>
+				<button data-key="83" class="key">
+					<kbd data-key="83">S</kbd>
+					<span data-key="83" class="sound">2'000$ - 32'000$ question</span>
+				</button>
+				<button data-key="68" class="key">
+					<kbd data-key="68">D</kbd>
+					<span data-key="68" class="sound">64'000$ question</span>
+				</button>
+				<button data-key="70" class="key">
+					<kbd data-key="70">F</kbd>
+					<span data-key="70" class="sound">125'000$ - 250'000$ question</span>
+				</button>
+				<button data-key="71" class="key">
+					<kbd data-key="71">G</kbd>
+					<span data-key="71" class="sound">500'000$ question</span>
+				</button>
+				<button data-key="72" class="key">
+					<kbd data-key="72">H</kbd>
+					<span data-key="72" class="sound">1'000'000$ question</span>
+				</button>
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="row">
+			<h2>Answers sounds</h2>
+			<div class="keys">
+				<button data-key="89" class="key">
+					<kbd data-key="89">Y</kbd>
+					<span data-key="89" class="sound">Final answer</span>
+				</button>
+				<button data-key="88" class="key">
+					<kbd data-key="88">X</kbd>
+					<span data-key="88" class="sound">Correct answer</span>
+				</button>
+				<button data-key="67" class="key">
+					<kbd data-key="67">C</kbd>
+					<span data-key="67" class="sound">Wrong answer</span>
+				</button>
+			</div>
+		</div>
+
+	</div>
+
+	<audio data-key="81" src="sounds/main theme.mp3"></audio>
+	<audio data-key="87" src="sounds/lets play.mp3"></audio>
+	<audio data-key="69" src="sounds/phone a friend.mp3"></audio>
+	<audio data-key="82" src="sounds/fastest finger.mp3"></audio>
+	<audio data-key="84" src="sounds/commerical break.mp3"></audio>
+
+	<audio data-key="89" src="sounds/final answer.mp3"></audio>
+	<audio data-key="88" src="sounds/correct answer.mp3"></audio>
+	<audio data-key="67" src="sounds/wrong answer.mp3"></audio>
+
+	<audio data-key="65" src="sounds/100-1000 music.mp3"></audio>
+	<audio data-key="83" src="sounds/2000-32000.mp3"></audio>
+	<audio data-key="68" src="sounds/64000 music.mp3"></audio>
+	<audio data-key="70" src="sounds/125000-250000 music.mp3"></audio>
+	<audio data-key="71" src="sounds/500000 music.mp3"></audio>
+	<audio data-key="72" src="sounds/1000000 music.mp3"></audio>
+
+	<script type="text/javascript" src="js/script.js"></script>
+
+</body>
+
+</html>
