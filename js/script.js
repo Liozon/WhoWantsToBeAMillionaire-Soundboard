@@ -1,31 +1,37 @@
 var currentPlayer;
+const keysRef = [49, 50, 51, 52, 53, 81, 87, 69, 89, 88, 67, 65, 83, 68, 70, 71, 72, 74, 75]
 function playSound(e) {
 
-    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-    const thissound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
-    //console.log(key);
+    // Check if the pressed key is in the array, if not, the audio continues to play
+    if (keysRef.includes(e.keyCode)) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        const thissound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+        //console.log(key);
 
-    if (currentPlayer && currentPlayer != thissound) {
-        currentPlayer.pause();
-        currentPlayer.currentTime = 0;
-    }
+        if (currentPlayer && currentPlayer != thissound) {
+            currentPlayer.pause();
+            currentPlayer.currentTime = 0;
+        }
 
-    if (thissound.paused) {
-        thissound.play();
-    } else {
-        thissound.pause();
-        thissound.currentTime = 0;
+        if (thissound.paused) {
+            thissound.play();
+        } else {
+            thissound.pause();
+            thissound.currentTime = 0;
+            currentPlayer = thissound;
+        }
+
         currentPlayer = thissound;
+        if (!audio) return; //stop func from running 
+
+        //when played a key in succession, it will call play again even if the previous play is running
+        //i.e it rewinds to the start
+
+        key.classList.add('playing');
+    } else {
+
     }
-
-    currentPlayer = thissound;
-    if (!audio) return; //stop func from running 
-
-    //when played a key in succession, it will call play again even if the previous play is running
-    //i.e it rewinds to the start
-
-    key.classList.add('playing');
 
 }
 
