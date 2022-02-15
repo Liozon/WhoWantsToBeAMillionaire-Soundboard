@@ -1,13 +1,14 @@
 var currentPlayer;
-const keysRef = [49, 50, 51, 52, 53, 81, 87, 69, 89, 88, 67, 65, 83, 68, 70, 71, 72, 74, 75]
+const keysRef = [49, 50, 51, 52, 53, 81, 87, 69, 89, 88, 67, 65, 83, 68, 70, 71, 72, 74, 75, 82]
 function playSound(e) {
 
     // Check if the pressed key is in the array, if not, the audio continues to play
     if (keysRef.includes(e.keyCode)) {
+
         const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
         const thissound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
         const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
-        //console.log(key);
+        //console.log(e.keyCode);
 
         if (currentPlayer && currentPlayer != thissound) {
             currentPlayer.pause();
@@ -29,6 +30,14 @@ function playSound(e) {
         //i.e it rewinds to the start
 
         key.classList.add('playing');
+
+        //var audio = currentPlayer;
+
+        audio.addEventListener('timeupdate', updateUI);
+
+        function updateUI() {
+            $('#seekbar' + e.keyCode).attr("value", ((this.currentTime / this.duration)).toFixed(20));
+        }
     } else {
 
     }
@@ -58,3 +67,5 @@ window.addEventListener('keydown', playSound);
 
 //when you have an array, you cant listen on every single element
 //so you need to loop through each element and listen explicitly
+
+

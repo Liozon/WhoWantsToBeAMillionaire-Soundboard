@@ -11,6 +11,7 @@
 	<!-- kbd is keyboard input -->
 	<!-- keycodes: https://css-tricks.com/snippets/javascript/javascript-keycodes/ -->
 	<!-- Audio from: https://www.youtube.com/watch?v=xmGSf15WWVg&list=PLSiop7V1KXM563qQ4eDVSnK0CF5exn--w&index=1 -->
+	<!-- TO ADD: custom progress bar: https://codepen.io/mdf/pen/ZWbvBv?editors=1111 -->
 
 	<header>
 		<h1>
@@ -26,22 +27,32 @@
 				<button data-key="49" class="key">
 					<kbd data-key="49">1</kbd>
 					<span data-key="49" class="sound">Main Theme</span>
+					<progress id="seekbar49" value="0" max="1"></progress>
+					<audio id="player" preload="auto" data-key="49" src="sounds/main theme.mp3"></audio>
 				</button>
 				<button data-key="50" class="key">
 					<kbd data-key="50">2</kbd>
 					<span data-key="50" class="sound">Let's play !</span>
+					<progress id="seekbar50" value="0" max="1"></progress>
+					<audio id="player" preload="auto" data-key="50" src="sounds/lets play.mp3"></audio>
 				</button>
 				<button data-key="51" class="key">
 					<kbd data-key="51">3</kbd>
 					<span data-key="51" class="sound">Candidate's coming</span>
+					<progress id="seekbar51" value="0" max="1"></progress>
+					<audio id="player" preload="auto" data-key="51" src="sounds/candidate's arriving.mp3"></audio>
 				</button>
 				<button data-key="52" class="key">
 					<kbd data-key="52">4</kbd>
 					<span data-key="52" class="sound">Fastest finger</span>
+					<progress id="seekbar52" value="0" max="1"></progress>
+					<audio id="player" preload="auto" data-key="52" src="sounds/fastest finger.mp3"></audio>
 				</button>
 				<button data-key="53" class="key">
 					<kbd data-key="53">5</kbd>
 					<span data-key="53" class="sound">Commercial break</span>
+					<progress id="seekbar53" value="0" max="1"></progress>
+					<audio id="player" preload="auto" data-key="53" src="sounds/commerical break.mp3"></audio>
 				</button>
 			</div>
 		</div>
@@ -54,14 +65,26 @@
 				<button data-key="81" class="key">
 					<kbd data-key="81">Q</kbd>
 					<span data-key="81" class="sound">50 / 50</span>
+					<progress id="seekbar81" value="0" max="1"></progress>
+					<audio preload="auto" data-key="81" src="sounds/50-50.mp3"></audio>
 				</button>
 				<button data-key="87" class="key">
 					<kbd data-key="87">W</kbd>
 					<span data-key="87" class="sound">Call a friend</span>
+					<progress id="seekbar87" value="0" max="1"></progress>
+					<audio preload="auto" data-key="87" src="sounds/phone a friend.mp3"></audio>
 				</button>
 				<button data-key="69" class="key">
 					<kbd data-key="69">E</kbd>
 					<span data-key="69" class="sound">Ask the audience</span>
+					<progress id="seekbar69" value="0" max="1"></progress>
+					<audio preload="auto" data-key="69" src="sounds/ask the audience.mp3"></audio>
+				</button>
+				<button data-key="82" class="key">
+					<kbd data-key="82">R</kbd>
+					<span data-key="82" class="sound">Ask the host</span>
+					<progress id="seekbar82" value="0" max="1"></progress>
+					<audio preload="auto" data-key="82" src="sounds/ask the host.mp3"></audio>
 				</button>
 			</div>
 		</div>
@@ -74,34 +97,50 @@
 				<button data-key="65" class="key">
 					<kbd data-key="65">A</kbd>
 					<span data-key="65" class="sound">100$ - 1'000$ question</span>
+					<progress id="seekbar65" value="0" max="1"></progress>
+					<audio preload="auto" data-key="65" src="sounds/100-1000 music.mp3"></audio>
 				</button>
 				<button data-key="83" class="key">
 					<kbd data-key="83">S</kbd>
 					<span data-key="83" class="sound">2'000$ - 32'000$ question</span>
+					<progress id="seekbar83" value="0" max="1"></progress>
+					<audio preload="auto" data-key="83" src="sounds/2000-32000.mp3"></audio>
 				</button>
 				<button data-key="68" class="key">
 					<kbd data-key="68">D</kbd>
 					<span data-key="68" class="sound">64'000$ question</span>
+					<progress id="seekbar68" value="0" max="1"></progress>
+					<audio preload="auto" data-key="68" src="sounds/64000 music.mp3"></audio>
 				</button>
 				<button data-key="70" class="key">
 					<kbd data-key="70">F</kbd>
 					<span data-key="70" class="sound">125'000$ - 250'000$ question</span>
+					<progress id="seekbar70" value="0" max="1"></progress>
+					<audio preload="auto" data-key="70" src="sounds/125000-250000 music.mp3"></audio>
 				</button>
 				<button data-key="71" class="key">
 					<kbd data-key="71">G</kbd>
 					<span data-key="71" class="sound">500'000$ question</span>
+					<progress id="seekbar71" value="0" max="1"></progress>
+					<audio preload="auto" data-key="71" src="sounds/500000 music.mp3"></audio>
 				</button>
 				<button data-key="72" class="key">
 					<kbd data-key="72">H</kbd>
 					<span data-key="72" class="sound">1'000'000$ question</span>
+					<progress id="seekbar72" value="0" max="1"></progress>
+					<audio preload="auto" data-key="72" src="sounds/1000000 music.mp3"></audio>
 				</button>
 				<button data-key="74" class="key">
 					<kbd data-key="74">J</kbd>
 					<span data-key="74" class="sound">Question type selection</span>
+					<progress id="seekbar74" value="0" max="1"></progress>
+					<audio preload="auto" data-key="74" src="sounds/question selection.mp3"></audio>
 				</button>
 				<button data-key="75" class="key">
 					<kbd data-key="75">K</kbd>
 					<span data-key="75" class="sound">New section</span>
+					<progress id="seekbar75" value="0" max="1"></progress>
+					<audio preload="auto" data-key="75" src="sounds/new question section.mp3"></audio>
 				</button>
 			</div>
 		</div>
@@ -114,43 +153,27 @@
 				<button data-key="89" class="key">
 					<kbd data-key="89">Y</kbd>
 					<span data-key="89" class="sound">Final answer</span>
+					<progress id="seekbar89" value="0" max="1"></progress>
+					<audio preload="auto" data-key="89" src="sounds/final answer.mp3"></audio>
 				</button>
 				<button data-key="88" class="key">
 					<kbd data-key="88">X</kbd>
 					<span data-key="88" class="sound">Correct answer</span>
+					<progress id="seekbar88" value="0" max="1"></progress>
+					<audio preload="auto" data-key="88" src="sounds/correct answer.mp3"></audio>
 				</button>
 				<button data-key="67" class="key">
 					<kbd data-key="67">C</kbd>
 					<span data-key="67" class="sound">Wrong answer</span>
+					<progress id="seekbar67" value="0" max="1"></progress>
+					<audio preload="auto" data-key="67" src="sounds/wrong answer.mp3"></audio>
 				</button>
 			</div>
 		</div>
 
 	</div>
 
-	<audio preload="auto" data-key="49" src="sounds/main theme.mp3"></audio>
-	<audio preload="auto" data-key="50" src="sounds/lets play.mp3"></audio>
-	<audio preload="auto" data-key="51" src="sounds/candidate's arriving.mp3"></audio>
-	<audio preload="auto" data-key="52" src="sounds/fastest finger.mp3"></audio>
-	<audio preload="auto" data-key="53" src="sounds/commerical break.mp3"></audio>
-
-	<audio preload="auto" data-key="81" src="sounds/50-50.mp3"></audio>
-	<audio preload="auto" data-key="87" src="sounds/phone a friend.mp3"></audio>
-	<audio preload="auto" data-key="69" src="sounds/ask the audience.mp3"></audio>
-
-	<audio preload="auto" data-key="89" src="sounds/final answer.mp3"></audio>
-	<audio preload="auto" data-key="88" src="sounds/correct answer.mp3"></audio>
-	<audio preload="auto" data-key="67" src="sounds/wrong answer.mp3"></audio>
-
-	<audio preload="auto" data-key="65" src="sounds/100-1000 music.mp3"></audio>
-	<audio preload="auto" data-key="83" src="sounds/2000-32000.mp3"></audio>
-	<audio preload="auto" data-key="68" src="sounds/64000 music.mp3"></audio>
-	<audio preload="auto" data-key="70" src="sounds/125000-250000 music.mp3"></audio>
-	<audio preload="auto" data-key="71" src="sounds/500000 music.mp3"></audio>
-	<audio preload="auto" data-key="72" src="sounds/1000000 music.mp3"></audio>
-	<audio preload="auto" data-key="74" src="sounds/question selection.mp3"></audio>
-	<audio preload="auto" data-key="75" src="sounds/new question section.mp3"></audio>
-
+	<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 
 </body>
