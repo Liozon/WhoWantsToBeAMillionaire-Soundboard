@@ -6,7 +6,7 @@ This soundboard is forked from the awesome work of [mayurcybercz's Rick Sanchez 
 
 This soundboard supports:
 
-* Responsive layout
+* Responsive layout (currently in dev)
 * A seekbar for each sound, to know how many time is remaining
 * Pause the current sound when pressing on the same sound
 * Pause the previous sound before playing the new sound
