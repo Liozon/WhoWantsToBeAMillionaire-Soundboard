@@ -30,6 +30,31 @@ h2 {
   justify-content: center;
 }
 
+button {
+  position: relative;
+}
+
+/* Seekbar */
+progress {
+  border-radius: 0px;
+  height: 7px;
+  width: 102px;
+  position: absolute;
+  top: +125px;
+  left: +0.4px;
+  z-index: -1000;
+}
+
+progress::-webkit-progress-bar {
+  background-color: rgba(0, 0, 0, 0.0);
+  border-radius: 0px;
+}
+
+progress::-webkit-progress-value {
+  background-color: #5F449E;
+  border-radius: 0px;
+}
+
 /* Responsive */
 @media (min-width: 800px) {
   .keys {
