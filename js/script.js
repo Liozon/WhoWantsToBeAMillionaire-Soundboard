@@ -41,9 +41,7 @@ function playSound(e) {
     } else {
 
     }
-
 }
-
 
 function removeTransition(e) {
     if (e.propertyName == 'transform') return; //skip if it is not a transform
@@ -51,7 +49,6 @@ function removeTransition(e) {
     //this is always the object upon which fn is called
     this.classList.remove('playing');
 }
-
 
 const keys = document.querySelectorAll('.key');
 //arrow fn which works as this keyword,i.e a sinle element of array
@@ -67,5 +64,3 @@ window.addEventListener('keydown', playSound);
 
 //when you have an array, you cant listen on every single element
 //so you need to loop through each element and listen explicitly
-
-
