@@ -52,6 +52,7 @@ progress::-webkit-progress-bar {
 progress::-webkit-progress-value {
   background-color: #6CA01D;
   border-radius: 0px;
+  transition: width 250ms linear;
 }
 
 .key {
