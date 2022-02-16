@@ -42,6 +42,7 @@ function playSound(e) {
         // When audio ends, fade out and reset the player
         currentPlayer.onended = function () {
             $('#seekbar' + e.keyCode).fadeOut(1000);
+
             setTimeout(function () {
                 currentPlayer.pause();
                 currentPlayer.currentTime = 0;
