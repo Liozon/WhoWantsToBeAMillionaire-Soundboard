@@ -46,9 +46,11 @@ function playSound(e) {
                 currentPlayer.pause();
                 currentPlayer.currentTime = 0;
                 currentPlayer = null;
+            }, 1010);
+
+            setTimeout(function () {
                 $('#seekbar' + e.keyCode).show();
             }, 1200);
-
         }
     } else {
 
