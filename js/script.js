@@ -38,9 +38,22 @@ function playSound(e) {
         function updateUI() {
             $('#seekbar' + e.keyCode).attr("value", ((this.currentTime / this.duration)).toFixed(20));
         }
+
+        // When audio ends, fade out and reset the player
+        currentPlayer.onended = function () {
+            $('#seekbar' + e.keyCode).fadeOut(1000);
+            setTimeout(function () {
+                currentPlayer.pause();
+                currentPlayer.currentTime = 0;
+                currentPlayer = null;
+                $('#seekbar' + e.keyCode).show();
+            }, 1200);
+
+        }
     } else {
 
     }
+
 }
 
 function removeTransition(e) {

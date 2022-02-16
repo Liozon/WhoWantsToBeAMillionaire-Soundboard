@@ -37,22 +37,54 @@ button {
 /* Seekbar */
 progress {
   border-radius: 0px;
-  height: 7px;
+  height: 135px;
   width: 105px;
   position: absolute;
-  top: +125px;
+  top: 0px;
   left: 0px;
   z-index: -1000;
 }
 
 progress::-webkit-progress-bar {
   background-color: rgba(0, 0, 0, 0.0);
-  border-radius: 0px;
 }
 
 progress::-webkit-progress-value {
-  background-color: #5F449E;
+  background-color: #6CA01D;
   border-radius: 0px;
+}
+
+.key {
+  height: 140px;
+  width: 110px;
+  margin: 1rem;
+  font-size: 1.5rem;
+  padding: 1rem .5rem;
+  transition: all .07s ease;
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 .5rem black;
+  border: .4rem solid black;
+  border-radius: .5rem;
+}
+
+.playing {
+  transform: scale(1.1);
+  border-color: #ffc600;
+  box-shadow: 0 0 1rem #ffc600;
+}
+
+kbd {
+  display: block;
+  font-size: 4rem;
+}
+
+.sound {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  color: #ffc600;
 }
 
 /* Responsive */
@@ -86,45 +118,33 @@ progress::-webkit-progress-value {
     align-items: center;
     justify-content: center;
   }
+
+  .btnTitle {
+    display: none;
+  }
+
+  .sound {
+    font-weight: bold;
+    font-size: 1.4rem;
+  }
+
+  .key {
+    width: 130px;
+  }
+
+  progress {
+    width: 125px;
+  }
 }
 
 @media (max-width: 250px) {
+  .btnTitle {
+    display: none;
+  }
+
   .keys {
     grid-template-columns: repeat(1, 1fr);
     align-items: center;
     justify-content: center;
   }
-}
-
-.key {
-  height: 140px;
-  width: 110px;
-  border: .4rem solid black;
-  border-radius: .5rem;
-  margin: 1rem;
-  font-size: 1.5rem;
-  padding: 1rem .5rem;
-  transition: all .07s ease;
-  text-align: center;
-  color: white;
-  background: rgba(0, 0, 0, 0.4);
-  text-shadow: 0 0 .5rem black;
-}
-
-.playing {
-  transform: scale(1.1);
-  border-color: #ffc600;
-  box-shadow: 0 0 1rem #ffc600;
-}
-
-kbd {
-  display: block;
-  font-size: 4rem;
-}
-
-.sound {
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  letter-spacing: .1rem;
-  color: #ffc600;
 }
