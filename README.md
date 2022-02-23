@@ -7,6 +7,7 @@ This soundboard is forked from the awesome work of [mayurcybercz's Rick Sanchez 
 This soundboard supports:
 
 * Keyboard inputs, to start each sound with more control
+* Matching sounds loudness
 * Responsive layout
 * A seekbar (entire button) for each sound, to know how many time is remaining
 * Pause the current sound when pressing on the same sound
