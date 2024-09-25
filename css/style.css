@@ -7,15 +7,17 @@ body,
 html {
   margin: 0;
   padding: 0;
+  background-color: #121212;
+  /* Dark mode background */
+  color: white;
 }
 
 header {
   text-align: center;
-
 }
 
 h1 {
-  font-size: 25px;
+  font-size: 2.5rem;
 }
 
 h2 {
@@ -30,32 +32,54 @@ h2 {
   justify-content: center;
 }
 
+/* Ensure .row elements are using flexbox */
+.row {
+  display: flex;
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
+  margin: 1rem 0;
+  /* Spacing between rows */
+}
+
 button {
   position: relative;
+  cursor: pointer;
+  z-index: 1;
+  /* Ensure buttons are clickable */
 }
 
 /* Seekbar */
 progress {
   border-radius: 0px;
-  height: 135px;
-  width: 105px;
+  height: 100%;
+  width: 100%;
+  /* Full width of the button */
   position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: -1000;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  /* Ensure seekbar is below buttons */
+  opacity: 0.7;
+  /* Optional: slightly transparent */
+  pointer-events: none;
+  /* Allow clicks to pass through */
 }
 
 progress::-webkit-progress-bar {
-  background-color: rgba(0, 0, 0, 0.0);
+  background-color: rgba(0, 0, 0, 0.2);
+  /* Background for seekbar */
 }
 
 progress::-webkit-progress-value {
   background-color: #6CA01D;
-  border-radius: 0px;
+  /* Color of progress bar */
   transition: width 250ms linear;
 }
 
 .key {
+  position: relative;
   height: 140px;
   width: 110px;
   margin: 1rem;
@@ -66,7 +90,7 @@ progress::-webkit-progress-value {
   color: white;
   background: rgba(0, 0, 0, 0.4);
   text-shadow: 0 0 .5rem black;
-  border: .4rem solid black;
+  border: .4rem solid rgba(169, 169, 169, 0.438);
   border-radius: .5rem;
 }
 
@@ -83,12 +107,26 @@ kbd {
 
 .sound {
   font-size: 1.2rem;
-  text-transform: uppercase;
+  text-transform: none;
+  /* Removes all caps */
   letter-spacing: .1rem;
   color: #ffc600;
 }
 
-/* Responsive */
+.btnTitle {
+  font-size: 2.5rem;
+  /* Larger size for keyboard keys */
+  color: #6CA01D;
+  margin-bottom: 1rem;
+  text-transform: none;
+  /* Removes all caps */
+  display: flex;
+  /* Ensure flex layout */
+  justify-content: center;
+  /* Center text horizontally */
+}
+
+/* Responsive design */
 @media (min-width: 800px) {
   .keys {
     grid-template-columns: repeat(100, 1fr);
