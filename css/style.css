@@ -1,151 +1,846 @@
-html {
-  font-size: 10px;
-  font-family: 'Roboto', sans-serif;
+/* ==========================================================================
+   Who Wants to Be a Millionaire — Soundboard
+   Fonts are self-hosted (SIL Open Font License, see fonts/*-OFL.txt)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Fonts
+   Balthazar  ≈ Copperplate Gothic (show logo / price ladder)
+   Barlow     ≈ ITC Conduit (on-screen question graphics)
+   -------------------------------------------------------------------------- */
+@font-face {
+	font-family: "Balthazar";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../fonts/balthazar-latin.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-body,
-html {
-  margin: 0;
-  padding: 0;
+@font-face {
+	font-family: "Barlow";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("../fonts/barlow-500-latin.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-header {
-  text-align: center;
+@font-face {
+	font-family: "Barlow";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("../fonts/barlow-600-latin.woff2") format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
+/* --------------------------------------------------------------------------
+   Design tokens
+   -------------------------------------------------------------------------- */
+:root {
+	--font-display: "Balthazar", "Copperplate", "Copperplate Gothic", "Times New Roman", serif;
+	--font-body: "Barlow", "Segoe UI", Roboto, "Helvetica Neue", Arial, system-ui, sans-serif;
+
+	--radius-sm: 8px;
+	--radius-md: 14px;
+	--radius-lg: 20px;
+	--maxw: 1440px;
+
+	--ease: cubic-bezier(.2, .7, .3, 1);
+	--dur: 180ms;
+
+	/* Default = TV show theme (applied if no data-theme is set) */
+	color-scheme: dark;
+	--bg-base: #05062a;
+	--bg-mid: #0a1152;
+	--bg-glow: #1c2e96;
+	--watermark: rgba(120, 150, 255, .1);
+
+	--surface: rgba(11, 20, 74, .72);
+	--border: rgba(245, 197, 24, .22);
+	--border-strong: rgba(245, 197, 24, .6);
+
+	--text: #eef1ff;
+	--muted: #a9b4dc;
+	--title: #f5c518;
+	--title-shadow: 0 2px 0 rgba(0, 0, 0, .45), 0 0 34px var(--glow);
+
+	--accent: #f5c518;
+	--accent-soft: #ffe9a3;
+	--accent-ink: #1a1400;
+	--accent-text: #f5c518;
+	--focus: #f5c518;
+	--glow: rgba(245, 197, 24, .35);
+
+	--kbd-bg: rgba(245, 197, 24, .16);
+	--kbd-border: rgba(245, 197, 24, .62);
+	--kbd-text: #ffe9a3;
+
+	--progress-from: #b8901a;
+	--progress-mid: #f5c518;
+	--progress-to: #f2cf5c;
+	--progress-opacity: .42;
+
+	--shadow: 0 18px 42px -24px rgba(0, 0, 0, .95);
+	--header-bg: rgba(5, 6, 42, .72);
+}
+
+/* TV show — the contestant's screen: royal-blue spotlight, gold chrome */
+:root[data-theme="show"] {
+	color-scheme: dark;
+	--bg-base: #05062a;
+	--bg-mid: #0a1152;
+	--bg-glow: #1c2e96;
+	--watermark: rgba(120, 150, 255, .1);
+
+	--surface: rgba(11, 20, 74, .72);
+	--border: rgba(245, 197, 24, .22);
+	--border-strong: rgba(245, 197, 24, .6);
+
+	--text: #eef1ff;
+	--muted: #a9b4dc;
+	--title: #f5c518;
+	--title-shadow: 0 2px 0 rgba(0, 0, 0, .45), 0 0 34px var(--glow);
+
+	--accent: #f5c518;
+	--accent-soft: #ffe9a3;
+	--accent-ink: #1a1400;
+	--accent-text: #f5c518;
+	--focus: #f5c518;
+	--glow: rgba(245, 197, 24, .35);
+
+	--kbd-bg: rgba(245, 197, 24, .16);
+	--kbd-border: rgba(245, 197, 24, .62);
+	--kbd-text: #ffe9a3;
+
+	--progress-from: #b8901a;
+	--progress-mid: #f5c518;
+	--progress-to: #f2cf5c;
+	--progress-opacity: .42;
+
+	--shadow: 0 18px 42px -24px rgba(0, 0, 0, .95);
+	--header-bg: rgba(5, 6, 42, .72);
+}
+
+/* Dark — neutral charcoal, same gold accent */
+:root[data-theme="dark"] {
+	color-scheme: dark;
+	--bg-base: #08090c;
+	--bg-mid: #0d0f15;
+	--bg-glow: #1a1e2b;
+	--watermark: transparent;
+
+	--surface: #14161d;
+	--border: #272b37;
+	--border-strong: rgba(245, 197, 24, .55);
+
+	--text: #e9ebf2;
+	--muted: #9ba1b4;
+	--title: #f5c518;
+	--title-shadow: 0 2px 0 rgba(0, 0, 0, .6), 0 0 28px var(--glow);
+
+	--accent: #f5c518;
+	--accent-soft: #ffe9a3;
+	--accent-ink: #1a1400;
+	--accent-text: #f5c518;
+	--focus: #f5c518;
+	--glow: rgba(245, 197, 24, .3);
+
+	--kbd-bg: #23262f;
+	--kbd-border: rgba(245, 197, 24, .5);
+	--kbd-text: #ffe9a3;
+
+	--progress-from: #b8901a;
+	--progress-mid: #f5c518;
+	--progress-to: #f2cf5c;
+	--progress-opacity: .4;
+
+	--shadow: 0 16px 36px -24px #000;
+	--header-bg: rgba(8, 9, 12, .78);
+}
+
+/* Light — white panels, navy text, gold used as fill/border only */
+:root[data-theme="light"] {
+	color-scheme: light;
+	--bg-base: #eef1f8;
+	--bg-mid: #f6f8fd;
+	--bg-glow: #ffffff;
+	--watermark: transparent;
+
+	--surface: #ffffff;
+	--border: #dbe0ec;
+	--border-strong: #c9a227;
+
+	--text: #0b1033;
+	--muted: #5b6382;
+	--title: #0b1033;
+	--title-shadow: none;
+
+	--accent: #c9a227;
+	--accent-soft: #e0b84b;
+	--accent-ink: #1a1400;
+	--accent-text: #6b5200;
+	--focus: #8a6a00;
+	--glow: rgba(201, 162, 39, .3);
+
+	--kbd-bg: #fff6dc;
+	--kbd-border: #c9a227;
+	--kbd-text: #6b5200;
+
+	--progress-from: #c9a227;
+	--progress-mid: #e0b84b;
+	--progress-to: #f2d675;
+	--progress-opacity: .55;
+
+	--shadow: 0 14px 32px -20px rgba(11, 16, 51, .3);
+	--header-bg: rgba(246, 248, 253, .82);
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	background-color: var(--bg-base);
+	background-image: radial-gradient(140% 100% at 50% -30%, var(--bg-glow) 0%, transparent 62%);
+	background-repeat: no-repeat;
+	-webkit-text-size-adjust: 100%;
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	min-height: 100dvh;
+	font-family: var(--font-body);
+	font-size: 1rem;
+	line-height: 1.45;
+	color: var(--text);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+	-webkit-tap-highlight-color: transparent;
+	overflow-x: hidden;
+}
+
+/* Concentric "logo ring" watermark, only in the show theme */
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	background: repeating-radial-gradient(circle at 50% 32%,
+			transparent 0 118px,
+			var(--watermark) 118px 119px);
+	-webkit-mask-image: radial-gradient(62% 62% at 50% 36%, #000 0%, transparent 78%);
+	mask-image: radial-gradient(62% 62% at 50% 36%, #000 0%, transparent 78%);
+}
+
+img,
+svg {
+	display: block;
+}
+
+a {
+	color: var(--accent-text);
+	text-decoration-color: color-mix(in srgb, var(--accent-text) 45%, transparent);
+	text-underline-offset: 2px;
+}
+
+a:hover {
+	text-decoration-color: currentColor;
+}
+
+::selection {
+	background: var(--accent);
+	color: var(--accent-ink);
+}
+
+:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: 3px;
+	border-radius: 4px;
+}
+
+.skip-link {
+	position: absolute;
+	top: -100px;
+	left: 1rem;
+	z-index: 100;
+	padding: .7rem 1rem;
+	border-radius: var(--radius-sm);
+	background: var(--accent);
+	color: var(--accent-ink);
+	font-weight: 600;
+	text-decoration: none;
+	transition: top var(--dur) var(--ease);
+}
+
+.skip-link:focus {
+	top: .75rem;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	background: var(--header-bg);
+	border-bottom: 1px solid var(--border);
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+	.site-header {
+		-webkit-backdrop-filter: blur(14px) saturate(140%);
+		backdrop-filter: blur(14px) saturate(140%);
+	}
+}
+
+.header-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.25rem;
+	width: min(100% - 2.5rem, var(--maxw));
+	margin-inline: auto;
+	padding: .85rem 0 .6rem;
+}
+
+.brand {
+	min-width: 0;
+}
+
+.brand-kicker {
+	margin: 0 0 .15rem;
+	font-size: .7rem;
+	font-weight: 600;
+	letter-spacing: .34em;
+	text-transform: uppercase;
+	color: var(--accent-text);
+	opacity: .9;
 }
 
 h1 {
-  font-size: 25px;
+	margin: 0;
+	font-family: var(--font-display);
+	font-weight: 400;
+	font-size: clamp(1.35rem, 3.4vw, 2.6rem);
+	line-height: 1.06;
+	letter-spacing: .035em;
+	text-transform: uppercase;
+	color: var(--title);
+	text-shadow: var(--title-shadow);
+	text-wrap: balance;
 }
 
-h2 {
-  padding-left: 10px;
+/* Theme switcher */
+.theme-switch {
+	display: inline-flex;
+	flex: none;
+	gap: 3px;
+	padding: 4px;
+	border: 1px solid var(--border);
+	border-radius: 999px;
+	background: var(--surface);
+	box-shadow: var(--shadow);
+}
+
+.theme-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: .4rem;
+	min-height: 40px;
+	padding: 0 .75rem;
+	border: 0;
+	border-radius: 999px;
+	background: transparent;
+	color: var(--muted);
+	font-family: var(--font-body);
+	font-size: .74rem;
+	font-weight: 600;
+	letter-spacing: .1em;
+	text-transform: uppercase;
+	line-height: 1;
+	cursor: pointer;
+	touch-action: manipulation;
+	transition: background-color var(--dur) var(--ease),
+		color var(--dur) var(--ease),
+		box-shadow var(--dur) var(--ease);
+}
+
+.theme-btn svg {
+	width: 16px;
+	height: 16px;
+	flex: none;
+}
+
+.theme-btn:hover {
+	color: var(--text);
+}
+
+.theme-btn[aria-pressed="true"] {
+	background: linear-gradient(180deg, var(--accent-soft), var(--accent));
+	color: var(--accent-ink);
+	box-shadow: 0 2px 12px -2px var(--glow), inset 0 1px 0 rgba(255, 255, 255, .35);
+}
+
+.keyboard-hint {
+	width: min(100% - 2.5rem, var(--maxw));
+	margin: 0 auto;
+	padding: 0 0 .8rem;
+	font-size: .78rem;
+	letter-spacing: .02em;
+	color: var(--muted);
+	text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   Soundboard
+   -------------------------------------------------------------------------- */
+.container {
+	position: relative;
+	display: grid;
+	gap: 2rem;
+	width: min(100% - 2.5rem, var(--maxw));
+	margin-inline: auto;
+	padding: 1.6rem 0 3rem;
+}
+
+.sound-group {
+	min-width: 0;
+}
+
+.sound-group h2 {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin: 0 0 1rem;
+	font-family: var(--font-body);
+	font-size: .78rem;
+	font-weight: 600;
+	letter-spacing: .24em;
+	text-transform: uppercase;
+	color: var(--accent-text);
+}
+
+.sound-group h2::after {
+	content: "";
+	flex: 1;
+	height: 1px;
+	background: linear-gradient(90deg, var(--border-strong), transparent);
 }
 
 .keys {
-  display: grid;
-  flex: 1;
-  min-height: 10vh;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: .85rem;
 }
 
-button {
-  position: relative;
+/* Card = answer lozenge */
+.key {
+	position: relative;
+	display: flex;
+	flex: 1 1 160px;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: .4rem;
+	max-width: 210px;
+	min-height: 120px;
+	padding: 1.1rem .85rem 1.3rem;
+	overflow: hidden;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+	background:
+		linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, 0) 45%),
+		var(--surface);
+	color: var(--text);
+	font-family: var(--font-body);
+	text-align: center;
+	cursor: pointer;
+	box-shadow: var(--shadow);
+	-webkit-appearance: none;
+	appearance: none;
+	-webkit-user-select: none;
+	user-select: none;
+	touch-action: manipulation;
+	transition:
+		transform var(--dur) var(--ease),
+		border-color var(--dur) var(--ease),
+		box-shadow var(--dur) var(--ease);
 }
 
-/* Seekbar */
+.key::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+	pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.key:hover {
+		transform: translateY(-3px);
+		border-color: var(--border-strong);
+		box-shadow:
+			0 0 0 1px var(--border-strong),
+			0 24px 40px -26px rgba(0, 0, 0, .8),
+			0 0 26px -8px var(--glow);
+	}
+}
+
+.key:active {
+	transform: scale(.975);
+}
+
+/* Keyboard keycap */
+.btnTitle {
+	position: relative;
+	z-index: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2.3rem;
+	height: 2rem;
+	margin: 0;
+	padding: 0 .55rem;
+	border: 1px solid var(--kbd-border);
+	border-radius: 8px;
+	background: var(--kbd-bg);
+	color: var(--kbd-text);
+	font-family: var(--font-body);
+	font-size: 1rem;
+	font-weight: 600;
+	letter-spacing: .06em;
+	line-height: 1;
+	box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .28);
+}
+
+/* Sound name */
+.sound {
+	position: relative;
+	z-index: 1;
+	font-size: .95rem;
+	font-weight: 500;
+	line-height: 1.25;
+	letter-spacing: .012em;
+	color: var(--text);
+	text-wrap: balance;
+	overflow-wrap: break-word;
+	hyphens: auto;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, .45);
+}
+
+/* The seekbar fills the whole card so playback is obvious at a glance */
 progress {
-  border-radius: 0px;
-  height: 135px;
-  width: 105px;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: -1000;
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	-webkit-appearance: none;
+	appearance: none;
+	opacity: var(--progress-opacity);
+	pointer-events: none;
+	transition: opacity .3s var(--ease);
+}
+
+progress.is-fading {
+	opacity: 0;
 }
 
 progress::-webkit-progress-bar {
-  background-color: rgba(0, 0, 0, 0.0);
+	background: transparent;
+	border-radius: 0;
 }
 
 progress::-webkit-progress-value {
-  background-color: #6CA01D;
-  border-radius: 0px;
-  transition: width 250ms linear;
+	background: linear-gradient(90deg, var(--progress-from), var(--progress-mid) 60%, var(--progress-to));
+	transition: width .25s linear;
 }
 
-.key {
-  height: 140px;
-  width: 110px;
-  margin: 1rem;
-  font-size: 1.5rem;
-  padding: 1rem .5rem;
-  transition: all .07s ease;
-  text-align: center;
-  color: white;
-  background: rgba(0, 0, 0, 0.4);
-  text-shadow: 0 0 .5rem black;
-  border: .4rem solid black;
-  border-radius: .5rem;
+progress::-moz-progress-bar {
+	background: linear-gradient(90deg, var(--progress-from), var(--progress-mid) 60%, var(--progress-to));
 }
 
-.playing {
-  transform: scale(1.1);
-  border-color: #ffc600;
-  box-shadow: 0 0 1rem #ffc600;
+/* Playing state: gold border + the full-card seekbar are enough. */
+.key.playing {
+	border-color: var(--border-strong);
+	box-shadow:
+		0 0 0 1px var(--border-strong),
+		0 0 32px -8px var(--glow),
+		inset 0 0 46px -26px var(--glow);
 }
 
-kbd {
-  display: block;
-  font-size: 4rem;
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+	position: relative;
+	padding: 1.5rem 1.25rem calc(1.6rem + env(safe-area-inset-bottom));
+	border-top: 1px solid var(--border);
+	font-size: .76rem;
+	line-height: 1.5;
+	color: var(--muted);
+	text-align: center;
 }
 
-.sound {
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  letter-spacing: .1rem;
-  color: #ffc600;
+.site-footer p {
+	margin: .2rem auto;
+	max-width: 760px;
 }
 
-/* Responsive */
-@media (min-width: 800px) {
-  .keys {
-    grid-template-columns: repeat(100, 1fr);
-    align-items: center;
-    justify-content: center;
-  }
+/* --------------------------------------------------------------------------
+   Responsive & capabilities
+   -------------------------------------------------------------------------- */
+
+/* Touch devices without a physical keyboard: the key hints are noise */
+@media (hover: none) and (pointer: coarse) {
+	.btnTitle {
+		display: none;
+	}
+
+	.keyboard-hint {
+		display: none;
+	}
+
+	.theme-btn {
+		min-height: 44px;
+	}
+
+	.key {
+		gap: 0;
+		min-height: 78px;
+		padding: .85rem .7rem;
+	}
+
+	.sound {
+		font-size: 1rem;
+	}
 }
 
-@media (max-width: 800px) {
-  .keys {
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
-    justify-content: center;
-  }
+@media (max-width: 760px) {
+	.site-header {
+		position: static;
+	}
+
+	.header-inner {
+		flex-direction: column;
+		align-items: center;
+		gap: .7rem;
+		padding-top: 1rem;
+		text-align: center;
+	}
+
+	h1 {
+		font-size: clamp(1.35rem, 5.6vw, 2rem);
+	}
+
+	.theme-label {
+		display: none;
+	}
+
+	.theme-btn {
+		min-height: 44px;
+		padding: 0 .85rem;
+	}
+
+	.container {
+		width: calc(100% - 1.5rem);
+		gap: 1.6rem;
+		padding-top: 1.2rem;
+	}
+
+	.keyboard-hint {
+		padding-bottom: .7rem;
+	}
 }
 
-@media (max-width: 600px) {
-  .keys {
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-    justify-content: center;
-  }
+@media (max-width: 560px) {
+	.container {
+		width: calc(100% - 1.25rem);
+	}
+
+	.keys {
+		gap: .65rem;
+	}
+
+	.key {
+		flex: 1 1 calc(50% - .65rem);
+		max-width: none;
+		min-height: 96px;
+		padding: .95rem .6rem 1.15rem;
+	}
+
+	.sound {
+		font-size: .9rem;
+	}
+
+	.sound-group h2 {
+		font-size: .72rem;
+		letter-spacing: .18em;
+	}
 }
 
-@media (max-width: 400px) {
-  .keys {
-    grid-template-columns: repeat(2, 1fr);
-    align-items: center;
-    justify-content: center;
-  }
-
-  .btnTitle {
-    display: none;
-  }
-
-  .sound {
-    font-weight: bold;
-    font-size: 1.4rem;
-  }
-
-  .key {
-    width: 130px;
-  }
-
-  progress {
-    width: 125px;
-  }
+@media (max-width: 300px) {
+	.key {
+		flex-basis: 100%;
+		min-height: 68px;
+	}
 }
 
-@media (max-width: 250px) {
-  .btnTitle {
-    display: none;
-  }
+/* Desktop "fit" layout: every section on a single row, all four rows on one
+   screen without scrolling. Cards shrink instead of wrapping, and the type
+   scales with the viewport. Below these thresholds the normal wrapping layout
+   is kept, so a short or narrow window scrolls gracefully instead of clipping. */
+@media (min-width: 900px) and (min-height: 620px) {
+	html,
+	body {
+		height: 100%;
+	}
 
-  .keys {
-    grid-template-columns: repeat(1, 1fr);
-    align-items: center;
-    justify-content: center;
-  }
+	body {
+		display: flex;
+		flex-direction: column;
+		min-height: 0;
+	}
+
+	.site-header {
+		flex: none;
+	}
+
+	.header-inner {
+		padding: .65rem 0 .4rem;
+	}
+
+	.brand-kicker {
+		margin-bottom: .1rem;
+		font-size: .6rem;
+	}
+
+	h1 {
+		font-size: clamp(1.2rem, 1.7vw, 1.8rem);
+	}
+
+	.theme-btn {
+		min-height: 32px;
+		font-size: .66rem;
+	}
+
+	.theme-btn svg {
+		width: 14px;
+		height: 14px;
+	}
+
+	.keyboard-hint {
+		padding-bottom: .45rem;
+		font-size: .7rem;
+	}
+
+	.container {
+		display: flex;
+		flex: 1 1 auto;
+		flex-direction: column;
+		gap: clamp(.35rem, .9vh, .85rem);
+		min-height: 0;
+		padding: clamp(.45rem, 1.1vh, .9rem) 0 clamp(.55rem, 1.3vh, 1rem);
+	}
+
+	.sound-group {
+		display: flex;
+		flex: 1 1 0;
+		flex-direction: column;
+		min-height: 0;
+	}
+
+	.sound-group h2 {
+		flex: none;
+		margin-bottom: clamp(.2rem, .5vh, .45rem);
+		font-size: .66rem;
+		letter-spacing: .18em;
+	}
+
+	.keys {
+		flex: 1 1 0;
+		flex-wrap: nowrap;
+		gap: clamp(.3rem, .65vw, .7rem);
+		min-height: 0;
+	}
+
+	.key {
+		flex: 1 1 0;
+		min-width: 0;
+		min-height: 0;
+		height: 100%;
+		gap: .22rem;
+		padding: .3rem .35rem .4rem;
+		border-radius: var(--radius-sm);
+	}
+
+	.btnTitle {
+		min-width: 1.8rem;
+		height: 1.55rem;
+		padding: 0 .36rem;
+		font-size: .84rem;
+	}
+
+	.sound {
+		font-size: clamp(.75rem, .9vw, 1rem);
+		line-height: 1.14;
+		letter-spacing: 0;
+		hyphens: manual;
+	}
+
+	/* Keep the footer as a thin credit line instead of a full block. */
+	.site-footer {
+		flex: none;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0 .6rem;
+		padding: .4rem 1rem calc(.45rem + env(safe-area-inset-bottom));
+		font-size: .64rem;
+		line-height: 1.3;
+	}
+
+	.site-footer p {
+		margin: 0;
+		max-width: none;
+	}
+}
+
+/* Same fit layout on touch tablets (landscape): keep finger-sized targets. */
+@media (min-width: 900px) and (min-height: 620px) and (hover: none) and (pointer: coarse) {
+	.theme-btn {
+		min-height: 44px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: .001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: .001ms !important;
+	}
 }
