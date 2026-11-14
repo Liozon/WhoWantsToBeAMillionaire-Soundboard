@@ -1,181 +1,247 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="show">
 
 <head>
-	<title>Who wants to be a millionaire ?</title>
+	<meta charset="utf-8">
+	<title>Who wants to be a millionaire ? — Soundboard</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="description"
+		content="Soundboard with all the music and sound effects from the TV game show Who Wants to Be a Millionaire?">
+	<meta name="theme-color" content="#05062a">
+	<link rel="icon"
+		href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2305062a'/%3E%3Ccircle cx='32' cy='32' r='24' fill='none' stroke='%23f5c518' stroke-width='2'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia,serif' font-size='34' font-weight='bold' fill='%23f5c518'%3E%3F%3C/text%3E%3C/svg%3E">
+	<script>
+		/* Apply the saved theme before first paint to avoid a flash. */
+		(function () {
+			try {
+				var theme = localStorage.getItem('wwtbam-theme');
+				if (theme === 'show' || theme === 'dark' || theme === 'light') {
+					document.documentElement.setAttribute('data-theme', theme);
+				}
+			} catch (e) { /* storage unavailable: keep the default theme */ }
+		})();
+	</script>
+	<link rel="preload" href="fonts/balthazar-latin.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="icon" href="https://muggli.one/favicon/apple-icon-180x180.png">
-	<meta name="viewport" content="width=device-width,initial-scale=1" />
 </head>
 
 <body>
 	<!-- kbd is keyboard input -->
-	<!-- keycodes: https://css-tricks.com/snippets/javascript/javascript-keycodes/ -->
+	<!-- Shortcuts use physical key positions (KeyboardEvent.code): https://developer.mozilla.org/docs/Web/API/KeyboardEvent/code -->
 	<!-- Audio from: https://www.youtube.com/watch?v=xmGSf15WWVg&list=PLSiop7V1KXM563qQ4eDVSnK0CF5exn--w&index=1 -->
-	<!-- TO ADD: custom progress bar: https://codepen.io/mdf/pen/ZWbvBv?editors=1111 -->
 
-	<header>
-		<h1>
-			Who wants to be a millionaire ?
-		</h1>
+	<a class="skip-link" href="#board">Skip to the soundboard</a>
+
+	<header class="site-header">
+		<div class="header-inner">
+			<div class="brand">
+				<p class="brand-kicker">Soundboard</p>
+				<h1>Who wants to be a millionaire&nbsp;?</h1>
+			</div>
+
+			<div class="theme-switch" role="group" aria-label="Colour theme">
+				<button type="button" class="theme-btn" data-theme-value="show" aria-pressed="true"
+					title="TV show theme">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+						stroke-linejoin="round" aria-hidden="true" focusable="false">
+						<rect x="2.5" y="4" width="19" height="13" rx="2.2" />
+						<path d="M8 20.5h8M12 17v3.5" />
+					</svg>
+					<span class="theme-label">Show</span>
+				</button>
+				<button type="button" class="theme-btn" data-theme-value="dark" aria-pressed="false" title="Dark theme">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+						stroke-linejoin="round" aria-hidden="true" focusable="false">
+						<path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11Z" />
+					</svg>
+					<span class="theme-label">Dark</span>
+				</button>
+				<button type="button" class="theme-btn" data-theme-value="light" aria-pressed="false"
+					title="Light theme">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+						stroke-linejoin="round" aria-hidden="true" focusable="false">
+						<circle cx="12" cy="12" r="4.2" />
+						<path
+							d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6" />
+					</svg>
+					<span class="theme-label">Light</span>
+				</button>
+			</div>
+		</div>
+
+		<p class="keyboard-hint">Press the highlighted key on your keyboard, or click / tap a card.</p>
 	</header>
 
-	<div class="container">
+	<main class="container" id="board">
 
-		<div class="row">
-			<h2 class="rowTitle">General music</h2>
+		<section class="sound-group" aria-labelledby="group-general">
+			<h2 id="group-general">General music</h2>
 			<div class="keys">
-				<button data-key="49" class="key">
-					<kbd data-key="49" class="btnTitle">1</kbd>
-					<span data-key="49" class="sound">Main Theme</span>
-					<progress id="seekbar49" value="0" max="1"></progress>
-					<audio id="player" preload="auto" data-key="49" src="sounds/main theme.mp3"></audio>
+				<button type="button" data-code="Digit1" class="key" aria-label="Play Main Theme" title="Shortcut: 1">
+					<kbd class="btnTitle" aria-hidden="true">1</kbd>
+					<span class="sound">Main Theme</span>
+					<progress id="seekbar-Digit1" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="Digit1" src="sounds/main theme.mp3"></audio>
 				</button>
-				<button data-key="50" class="key">
-					<kbd data-key="50" class="btnTitle">2</kbd>
-					<span data-key="50" class="sound">Let's play !</span>
-					<progress id="seekbar50" value="0" max="1"></progress>
-					<audio id="player" preload="auto" data-key="50" src="sounds/lets play.mp3"></audio>
+				<button type="button" data-code="Digit2" class="key" aria-label="Play Let's play!" title="Shortcut: 2">
+					<kbd class="btnTitle" aria-hidden="true">2</kbd>
+					<span class="sound">Let's play !</span>
+					<progress id="seekbar-Digit2" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="Digit2" src="sounds/lets play.mp3"></audio>
 				</button>
-				<button data-key="51" class="key">
-					<kbd data-key="51" class="btnTitle">3</kbd>
-					<span data-key="51" class="sound">Candidate's coming</span>
-					<progress id="seekbar51" value="0" max="1"></progress>
-					<audio id="player" preload="auto" data-key="51" src="sounds/candidate's arriving.mp3"></audio>
+				<button type="button" data-code="Digit3" class="key" aria-label="Play Candidate's coming"
+					title="Shortcut: 3">
+					<kbd class="btnTitle" aria-hidden="true">3</kbd>
+					<span class="sound">Candidate's coming</span>
+					<progress id="seekbar-Digit3" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="Digit3" src="sounds/candidate's arriving.mp3"></audio>
 				</button>
-				<button data-key="52" class="key">
-					<kbd data-key="52" class="btnTitle">4</kbd>
-					<span data-key="52" class="sound">Fastest finger</span>
-					<progress id="seekbar52" value="0" max="1"></progress>
-					<audio id="player" preload="auto" data-key="52" src="sounds/fastest finger.mp3"></audio>
+				<button type="button" data-code="Digit4" class="key" aria-label="Play Fastest finger"
+					title="Shortcut: 4">
+					<kbd class="btnTitle" aria-hidden="true">4</kbd>
+					<span class="sound">Fastest finger</span>
+					<progress id="seekbar-Digit4" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="Digit4" src="sounds/fastest finger.mp3"></audio>
 				</button>
-				<button data-key="53" class="key">
-					<kbd data-key="53" class="btnTitle">5</kbd>
-					<span data-key="53" class="sound">Commercial break</span>
-					<progress id="seekbar53" value="0" max="1"></progress>
-					<audio id="player" preload="auto" data-key="53" src="sounds/commerical break.mp3"></audio>
+				<button type="button" data-code="Digit5" class="key" aria-label="Play Commercial break"
+					title="Shortcut: 5">
+					<kbd class="btnTitle" aria-hidden="true">5</kbd>
+					<span class="sound">Commercial break</span>
+					<progress id="seekbar-Digit5" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="Digit5" src="sounds/commerical break.mp3"></audio>
 				</button>
 			</div>
-		</div>
+		</section>
 
-		<hr>
-
-		<div class="row">
-			<h2 class="rowTitle">Jokers music</h2>
+		<section class="sound-group" aria-labelledby="group-jokers">
+			<h2 id="group-jokers">Jokers music</h2>
 			<div class="keys">
-				<button data-key="81" class="key">
-					<kbd data-key="81" class="btnTitle">Q</kbd>
-					<span data-key="81" class="sound">50 / 50</span>
-					<progress id="seekbar81" value="0" max="1"></progress>
-					<audio preload="auto" data-key="81" src="sounds/50-50.mp3"></audio>
+				<button type="button" data-code="KeyQ" class="key" aria-label="Play 50 / 50" title="Shortcut: Q">
+					<kbd class="btnTitle" aria-hidden="true">Q</kbd>
+					<span class="sound">50 / 50</span>
+					<progress id="seekbar-KeyQ" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyQ" src="sounds/50-50.mp3"></audio>
 				</button>
-				<button data-key="87" class="key">
-					<kbd data-key="87" class="btnTitle">W</kbd>
-					<span data-key="87" class="sound">Call a friend</span>
-					<progress id="seekbar87" value="0" max="1"></progress>
-					<audio preload="auto" data-key="87" src="sounds/phone a friend.mp3"></audio>
+				<button type="button" data-code="KeyW" class="key" aria-label="Play Call a friend" title="Shortcut: W">
+					<kbd class="btnTitle" aria-hidden="true">W</kbd>
+					<span class="sound">Call a friend</span>
+					<progress id="seekbar-KeyW" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyW" src="sounds/phone a friend.mp3"></audio>
 				</button>
-				<button data-key="69" class="key">
-					<kbd data-key="69" class="btnTitle">E</kbd>
-					<span data-key="69" class="sound">Ask the audience</span>
-					<progress id="seekbar69" value="0" max="1"></progress>
-					<audio preload="auto" data-key="69" src="sounds/ask the audience.mp3"></audio>
+				<button type="button" data-code="KeyE" class="key" aria-label="Play Ask the audience"
+					title="Shortcut: E">
+					<kbd class="btnTitle" aria-hidden="true">E</kbd>
+					<span class="sound">Ask the audience</span>
+					<progress id="seekbar-KeyE" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyE" src="sounds/ask the audience.mp3"></audio>
 				</button>
-				<button data-key="82" class="key">
-					<kbd data-key="82" class="btnTitle">R</kbd>
-					<span data-key="82" class="sound">Ask the host</span>
-					<progress id="seekbar82" value="0" max="1"></progress>
-					<audio preload="auto" data-key="82" src="sounds/ask the host.mp3"></audio>
+				<button type="button" data-code="KeyR" class="key" aria-label="Play Ask the host" title="Shortcut: R">
+					<kbd class="btnTitle" aria-hidden="true">R</kbd>
+					<span class="sound">Ask the host</span>
+					<progress id="seekbar-KeyR" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyR" src="sounds/ask the host.mp3"></audio>
 				</button>
 			</div>
-		</div>
+		</section>
 
-		<hr>
-
-		<div class="row">
-			<h2 class="rowTitle">Question sounds</h2>
+		<section class="sound-group" aria-labelledby="group-questions">
+			<h2 id="group-questions">Question sounds</h2>
 			<div class="keys">
-				<button data-key="65" class="key">
-					<kbd data-key="65" class="btnTitle">A</kbd>
-					<span data-key="65" class="sound">100$ - 1'000$ question</span>
-					<progress id="seekbar65" value="0" max="1"></progress>
-					<audio preload="auto" data-key="65" src="sounds/100-1000 music.mp3"></audio>
+				<button type="button" data-code="KeyA" class="key" aria-label="Play 100 to 1000 dollar question"
+					title="Shortcut: A">
+					<kbd class="btnTitle" aria-hidden="true">A</kbd>
+					<span class="sound">100$ - 1'000$ question</span>
+					<progress id="seekbar-KeyA" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyA" src="sounds/100-1000 music.mp3"></audio>
 				</button>
-				<button data-key="83" class="key">
-					<kbd data-key="83" class="btnTitle">S</kbd>
-					<span data-key="83" class="sound">2'000$ - 32'000$ question</span>
-					<progress id="seekbar83" value="0" max="1"></progress>
-					<audio preload="auto" data-key="83" src="sounds/2000-32000.mp3"></audio>
+				<button type="button" data-code="KeyS" class="key" aria-label="Play 2000 to 32000 dollar question"
+					title="Shortcut: S">
+					<kbd class="btnTitle" aria-hidden="true">S</kbd>
+					<span class="sound">2'000$ - 32'000$ question</span>
+					<progress id="seekbar-KeyS" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyS" src="sounds/2000-32000.mp3"></audio>
 				</button>
-				<button data-key="68" class="key">
-					<kbd data-key="68" class="btnTitle">D</kbd>
-					<span data-key="68" class="sound">64'000$ question</span>
-					<progress id="seekbar68" value="0" max="1"></progress>
-					<audio preload="auto" data-key="68" src="sounds/64000 music.mp3"></audio>
+				<button type="button" data-code="KeyD" class="key" aria-label="Play 64000 dollar question"
+					title="Shortcut: D">
+					<kbd class="btnTitle" aria-hidden="true">D</kbd>
+					<span class="sound">64'000$ question</span>
+					<progress id="seekbar-KeyD" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyD" src="sounds/64000 music.mp3"></audio>
 				</button>
-				<button data-key="70" class="key">
-					<kbd data-key="70" class="btnTitle">F</kbd>
-					<span data-key="70" class="sound">125'000$ - 250'000$ question</span>
-					<progress id="seekbar70" value="0" max="1"></progress>
-					<audio preload="auto" data-key="70" src="sounds/125000-250000 music.mp3"></audio>
+				<button type="button" data-code="KeyF" class="key" aria-label="Play 125000 to 250000 dollar question"
+					title="Shortcut: F">
+					<kbd class="btnTitle" aria-hidden="true">F</kbd>
+					<span class="sound">125'000$ - 250'000$ question</span>
+					<progress id="seekbar-KeyF" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyF" src="sounds/125000-250000 music.mp3"></audio>
 				</button>
-				<button data-key="71" class="key">
-					<kbd data-key="71" class="btnTitle">G</kbd>
-					<span data-key="71" class="sound">500'000$ question</span>
-					<progress id="seekbar71" value="0" max="1"></progress>
-					<audio preload="auto" data-key="71" src="sounds/500000 music.mp3"></audio>
+				<button type="button" data-code="KeyG" class="key" aria-label="Play 500000 dollar question"
+					title="Shortcut: G">
+					<kbd class="btnTitle" aria-hidden="true">G</kbd>
+					<span class="sound">500'000$ question</span>
+					<progress id="seekbar-KeyG" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyG" src="sounds/500000 music.mp3"></audio>
 				</button>
-				<button data-key="72" class="key">
-					<kbd data-key="72" class="btnTitle">H</kbd>
-					<span data-key="72" class="sound">1'000'000$ question</span>
-					<progress id="seekbar72" value="0" max="1"></progress>
-					<audio preload="auto" data-key="72" src="sounds/1000000 music.mp3"></audio>
+				<button type="button" data-code="KeyH" class="key" aria-label="Play 1000000 dollar question"
+					title="Shortcut: H">
+					<kbd class="btnTitle" aria-hidden="true">H</kbd>
+					<span class="sound">1'000'000$ question</span>
+					<progress id="seekbar-KeyH" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyH" src="sounds/1000000 music.mp3"></audio>
 				</button>
-				<button data-key="74" class="key">
-					<kbd data-key="74" class="btnTitle">J</kbd>
-					<span data-key="74" class="sound">Question type selection</span>
-					<progress id="seekbar74" value="0" max="1"></progress>
-					<audio preload="auto" data-key="74" src="sounds/question selection.mp3"></audio>
+				<button type="button" data-code="KeyJ" class="key" aria-label="Play Question type selection"
+					title="Shortcut: J">
+					<kbd class="btnTitle" aria-hidden="true">J</kbd>
+					<span class="sound">Question type selection</span>
+					<progress id="seekbar-KeyJ" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyJ" src="sounds/question selection.mp3"></audio>
 				</button>
-				<button data-key="75" class="key">
-					<kbd data-key="75" class="btnTitle">K</kbd>
-					<span data-key="75" class="sound">New section</span>
-					<progress id="seekbar75" value="0" max="1"></progress>
-					<audio preload="auto" data-key="75" src="sounds/new question section.mp3"></audio>
+				<button type="button" data-code="KeyK" class="key" aria-label="Play New section" title="Shortcut: K">
+					<kbd class="btnTitle" aria-hidden="true">K</kbd>
+					<span class="sound">New section</span>
+					<progress id="seekbar-KeyK" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyK" src="sounds/new question section.mp3"></audio>
 				</button>
 			</div>
-		</div>
+		</section>
 
-		<hr>
-
-		<div class="row">
-			<h2 class="rowTitle">Answers sounds</h2>
+		<section class="sound-group" aria-labelledby="group-answers">
+			<h2 id="group-answers">Answers sounds</h2>
 			<div class="keys">
-				<button data-key="89" class="key">
-					<kbd data-key="89" class="btnTitle">Y</kbd>
-					<span data-key="89" class="sound">Final answer</span>
-					<progress id="seekbar89" value="0" max="1"></progress>
-					<audio preload="auto" data-key="89" src="sounds/final answer.mp3"></audio>
+				<button type="button" data-code="KeyZ" class="key" aria-label="Play Final answer" title="Shortcut: Z">
+					<kbd class="btnTitle" aria-hidden="true">Z</kbd>
+					<span class="sound">Final answer</span>
+					<progress id="seekbar-KeyZ" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyZ" src="sounds/final answer.mp3"></audio>
 				</button>
-				<button data-key="88" class="key">
-					<kbd data-key="88" class="btnTitle">X</kbd>
-					<span data-key="88" class="sound">Correct answer</span>
-					<progress id="seekbar88" value="0" max="1"></progress>
-					<audio preload="auto" data-key="88" src="sounds/correct answer.mp3"></audio>
+				<button type="button" data-code="KeyX" class="key" aria-label="Play Correct answer" title="Shortcut: X">
+					<kbd class="btnTitle" aria-hidden="true">X</kbd>
+					<span class="sound">Correct answer</span>
+					<progress id="seekbar-KeyX" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyX" src="sounds/correct answer.mp3"></audio>
 				</button>
-				<button data-key="67" class="key">
-					<kbd data-key="67" class="btnTitle">C</kbd>
-					<span data-key="67" class="sound">Wrong answer</span>
-					<progress id="seekbar67" value="0" max="1"></progress>
-					<audio preload="auto" data-key="67" src="sounds/wrong answer.mp3"></audio>
+				<button type="button" data-code="KeyC" class="key" aria-label="Play Wrong answer" title="Shortcut: C">
+					<kbd class="btnTitle" aria-hidden="true">C</kbd>
+					<span class="sound">Wrong answer</span>
+					<progress id="seekbar-KeyC" value="0" max="1" aria-hidden="true"></progress>
+					<audio preload="auto" data-code="KeyC" src="sounds/wrong answer.mp3"></audio>
 				</button>
 			</div>
-		</div>
+		</section>
 
-	</div>
+	</main>
 
-	<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+	<footer class="site-footer">
+		<p>Fan project — sound effects belong to their respective owners.</p>
+		<p>Forked from <a href="https://github.com/mayurcybercz/RickSanchez-Soundboard" target="_blank">mayurcybercz's
+				Rick Sanchez soundboard</a>. Typefaces: <a href="https://fonts.google.com/specimen/Balthazar"
+				target="_blank">Balthazar</a> &amp; <a href="https://fonts.google.com/specimen/Barlow"
+				target="_blank">Barlow</a> (SIL Open Font License).</p>
+	</footer>
+
+	<script type="text/javascript" src="js/keyboard.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/theme.js"></script>
 
 </body>
 

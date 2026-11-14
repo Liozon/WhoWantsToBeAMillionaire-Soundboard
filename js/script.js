@@ -1,82 +1,140 @@
-var currentPlayer;
-const keysRef = [49, 50, 51, 52, 53, 81, 87, 69, 89, 88, 67, 65, 83, 68, 70, 71, 72, 74, 75, 82]
-function playSound(e) {
+/* Who Wants to Be a Millionaire — soundboard logic (no external dependencies). */
+(function () {
+	'use strict';
 
-    // Check if the pressed key is in the array, if not, the audio continues to play
-    if (keysRef.includes(e.keyCode)) {
+	/* Physical key codes, so the rows mirror the keyboard rows on QWERTY,
+	   QWERTZ, AZERTY, Dvorak… The answers row uses the first three keys of the
+	   bottom letter row (Z X C on QWERTY, Y X C on QWERTZ, W X C on AZERTY). */
+	var keyCodes = [
+		'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5',
+		'KeyQ', 'KeyW', 'KeyE', 'KeyR',
+		'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK',
+		'KeyZ', 'KeyX', 'KeyC'
+	];
 
-        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-        const thissound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
-        //console.log(e.keyCode);
+	var audios = Array.prototype.slice.call(document.querySelectorAll('audio[data-code]'));
+	var keys = Array.prototype.slice.call(document.querySelectorAll('.key[data-code]'));
+	var currentPlayer = null;
+	var currentKey = null;
 
-        if (currentPlayer && currentPlayer != thissound) {
-            currentPlayer.pause();
-            currentPlayer.currentTime = 0;
-        }
+	function audioForKey(keyCode) {
+		for (var i = 0; i < audios.length; i++) {
+			if (audios[i].getAttribute('data-code') === keyCode) {
+				return audios[i];
+			}
+		}
+		return null;
+	}
 
-        if (thissound.paused) {
-            thissound.play();
-        } else {
-            thissound.pause();
-            thissound.currentTime = 0;
-            currentPlayer = thissound;
-        }
+	function keyForAudio(audio) {
+		return document.querySelector('.key[data-code="' + audio.getAttribute('data-code') + '"]');
+	}
 
-        currentPlayer = thissound;
-        if (!audio) return; //stop func from running 
+	function seekbarFor(keyCode) {
+		return document.getElementById('seekbar-' + keyCode);
+	}
 
-        //when played a key in succession, it will call play again even if the previous play is running
-        //i.e it rewinds to the start
+	function setPlaying(key, isPlaying) {
+		if (!key) return;
+		key.classList.toggle('playing', isPlaying);
+	}
 
-        key.classList.add('playing');
+	function stopAudio(audio) {
+		audio.pause();
+		audio.currentTime = 0;
+		var bar = seekbarFor(audio.getAttribute('data-code'));
+		if (bar) bar.value = 0;
+	}
 
-        //var audio = currentPlayer;
+	/**
+	 * Play / pause / restart a sound.
+	 * Starting a new sound stops the previous one.
+	 */
+	function triggerSound(keyCode) {
+		var audio = audioForKey(keyCode);
+		if (!audio) return;
 
-        audio.addEventListener('timeupdate', updateUI);
+		var key = keyForAudio(audio);
 
-        function updateUI() {
-            $('#seekbar' + e.keyCode).attr("value", ((this.currentTime / this.duration)).toFixed(20));
-        }
+		if (currentPlayer && currentPlayer !== audio) {
+			stopAudio(currentPlayer);
+			setPlaying(currentKey, false);
+		}
 
-        // When audio ends, fade out and reset the player
-        currentPlayer.onended = function () {
-            $('#seekbar' + e.keyCode).fadeOut(1000);
+		if (audio.paused) {
+			var playback = audio.play();
+			if (playback && typeof playback.catch === 'function') {
+				// Autoplay policy or missing file: don't leave the card in the "playing" state.
+				playback.catch(function () {
+					setPlaying(key, false);
+				});
+			}
+			setPlaying(key, true);
+		} else {
+			// Pressing the same card again pauses and rewinds it.
+			stopAudio(audio);
+			setPlaying(key, false);
+		}
 
-            setTimeout(function () {
-                currentPlayer.pause();
-                currentPlayer.currentTime = 0;
-                currentPlayer = null;
-            }, 1010);
+		currentPlayer = audio;
+		currentKey = key;
+	}
 
-            setTimeout(function () {
-                $('#seekbar' + e.keyCode).show();
-            }, 1200);
-        }
-    } else {
+	audios.forEach(function (audio) {
+		var bar = seekbarFor(audio.getAttribute('data-code'));
 
-    }
+		audio.addEventListener('timeupdate', function () {
+			if (!bar) return;
+			bar.value = audio.duration ? audio.currentTime / audio.duration : 0;
+		});
 
-}
+		/* A new playback always starts from 0: reveal the bar again. */
+		audio.addEventListener('play', function () {
+			if (bar) bar.classList.remove('is-fading');
+		});
 
-function removeTransition(e) {
-    if (e.propertyName == 'transform') return; //skip if it is not a transform
+		audio.addEventListener('ended', function () {
+			setPlaying(keyForAudio(audio), false);
 
-    //this is always the object upon which fn is called
-    this.classList.remove('playing');
-}
+			if (currentPlayer === audio) {
+				currentPlayer = null;
+				currentKey = null;
+			}
 
-const keys = document.querySelectorAll('.key');
-//arrow fn which works as this keyword,i.e a sinle element of array
-keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+			if (!bar) return;
 
-// Trigger sound on click
-keys.forEach(key => key.addEventListener('click', function (event) {
-    var element = event.target.getAttribute('data-key')
-    window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: element, which: element }));
-}));
+			/* Keep the bar at its final value for a moment (so it stays visible
+			   until the very end of the sound, even with output latency), then
+			   fade it out. The value snaps back to 0 only while it is hidden;
+			   revealing it earlier showed the fill shrinking back to empty. */
+			setTimeout(function () {
+				if (!audio.paused) return; // restarted during the hold
 
-window.addEventListener('keydown', playSound);
+				bar.classList.add('is-fading');
 
-//when you have an array, you cant listen on every single element
-//so you need to loop through each element and listen explicitly
+				setTimeout(function () {
+					/* Restarted during the fade: the play handler already
+					   revealed the bar, so keep the fresh progress. */
+					if (!audio.paused) return;
+
+					audio.currentTime = 0;
+					bar.value = 0;
+				}, 300);
+			}, 350);
+		});
+	});
+
+	keys.forEach(function (key) {
+		key.addEventListener('click', function () {
+			triggerSound(key.getAttribute('data-code'));
+		});
+	});
+
+	window.addEventListener('keydown', function (event) {
+		if (event.repeat) return;
+		if (event.ctrlKey || event.metaKey || event.altKey) return;
+		if (keyCodes.indexOf(event.code) === -1) return;
+
+		triggerSound(event.code);
+	});
+})();
